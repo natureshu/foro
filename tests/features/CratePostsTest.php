@@ -29,4 +29,28 @@ class CratePostsTest extends FeatureTestCase
         // Test a user is redirected to the posts details after creating it.
         $this->see($title);
     }
+
+    // Creo una prueba que identifique que el usuario está conectado y si no lo está
+    // le redirecciono a la página de login
+
+    function test_creating_a_post_requires_authentication()
+    {
+        $this->visit(route('posts.create'))
+            ->seePageIs(route('login'));
+    }
+
+    // Validación del formulario
+    function test_create_post_validation()
+    {
+        $this->actingAs($this->defaultUser())
+            ->visit(route('posts.create'))
+            ->press('Publicar')
+            ->seePageIs(route('posts.create'))
+            ->seeErrors([
+                'title' => 'El campo título es obligatorio',
+                'content' => 'El campo contenido es obligatorio'
+            ])
+        ;
+
+    }
 }
