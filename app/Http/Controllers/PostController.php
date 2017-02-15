@@ -6,6 +6,13 @@ use App\Post;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        $posts = Post::all();
+
+        return view('posts.index', compact('posts'));
+    }
+
     public function show(Post $post, $slug)
     {
         if ($post->slug != $slug) {
@@ -13,4 +20,5 @@ class PostController extends Controller
         }
         return view('posts.show', compact('post'));
     }
+
 }

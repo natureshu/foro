@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'as' => 'posts.index',
+    'uses' => 'PostController@index',
+]);
 
 Auth::routes();
 
